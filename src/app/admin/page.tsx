@@ -1131,7 +1131,7 @@ export default function AdminPage() {
                       placeholder="e.g., June 2026 - August 2026"
                     />
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                     <div>
                       <label
                         style={{
@@ -1176,6 +1176,32 @@ export default function AdminPage() {
                           updateExperience(exp.id, "image", val)
                         }
                       />
+                    </div>
+                    <div>
+                      <label
+                        style={{
+                          display: "block",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.5625rem",
+                          color: "var(--color-text-muted)",
+                          marginBottom: 4,
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Image Position (Crop)
+                      </label>
+                      <select
+                        value={(exp as any).imagePosition || "center"}
+                        onChange={(e) => updateExperience(exp.id, "imagePosition", e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="center">Center (Default)</option>
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                        <option value="left">Left</option>
+                        <option value="right">Right</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -1359,7 +1385,7 @@ export default function AdminPage() {
                       className="input-field"
                     />
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                     <div>
                       <label
                         style={{
@@ -1404,6 +1430,32 @@ export default function AdminPage() {
                           updateProject(proj.id, "image", val)
                         }
                       />
+                    </div>
+                    <div>
+                      <label
+                        style={{
+                          display: "block",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.5625rem",
+                          color: "var(--color-text-muted)",
+                          marginBottom: 4,
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Image Position (Crop)
+                      </label>
+                      <select
+                        value={(proj as any).imagePosition || "center"}
+                        onChange={(e) => updateProject(proj.id, "imagePosition", e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="center">Center (Default)</option>
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                        <option value="left">Left</option>
+                        <option value="right">Right</option>
+                      </select>
                     </div>
                   </div>
                 </div>

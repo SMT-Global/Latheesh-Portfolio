@@ -64,8 +64,43 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ABOUT & EXPERIENCE SECTION */}
+      <section id="about" className="pt-[110px] pb-[110px] px-[7%]">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-[60px] items-start border-t border-[#dedbd3] pt-[110px]">
+          <div>
+            <p className="eyebrow">Experience</p>
+            <h2 className="font-display text-[clamp(2.2rem,5vw,4.5rem)] leading-none tracking-[-0.06em] mb-[22px] text-[#151515] font-medium">
+              Field execution and digital integration.
+            </h2>
+          </div>
+          <div className="flex flex-col gap-12">
+            {experience.map((exp) => (
+              <div key={exp.id} className="relative">
+                <div className="text-[#9b7a4f] text-[0.8rem] uppercase tracking-[0.12em] mb-2 font-bold">{exp.period}</div>
+                <h3 className="text-[1.5rem] font-display font-medium text-[#151515] mb-1">{exp.role}</h3>
+                <div className="text-[#6f6f6f] mb-4">{exp.company}</div>
+                {(exp as any).image && (
+                  <div className="mb-6 w-full h-[200px] md:h-[300px] overflow-hidden rounded-[16px] border border-[#dedbd3]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={(exp as any).image} alt={exp.company} className="w-full h-full object-cover" style={{ objectPosition: (exp as any).imagePosition || 'center' }} />
+                  </div>
+                )}
+                <ul className="flex flex-col gap-2">
+                  {exp.description.map((desc, i) => (
+                    <li key={i} className="text-[#6f6f6f] flex items-start gap-3 text-[0.95rem] leading-relaxed">
+                      <span className="text-[#dedbd3] mt-1">-</span>
+                      {desc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PROJECTS SECTION */}
-      <section id="projects" className="pt-[110px] pb-[110px] px-[7%]">
+      <section id="projects" className="py-[110px] px-[7%] border-t border-b border-[#dedbd3]">
         <div className="max-w-[760px] mb-[56px] section-heading">
           <p className="eyebrow">Selected Works</p>
           <h2 className="font-display font-medium text-[#151515]">Digital Twins & BIM</h2>
@@ -83,7 +118,7 @@ export default async function Home() {
             >
               <div className={`flex items-center justify-center text-[#6f6f6f] text-[0.9rem] overflow-hidden ${idx === 0 ? "h-full min-h-[300px] md:min-h-[430px]" : "h-[260px]"}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" style={{ objectPosition: project.imagePosition || 'center' }} />
               </div>
               <div className={`p-[28px] ${idx === 0 ? "md:p-[38px] flex flex-col justify-center" : ""}`}>
                 <p className="text-[#9b7a4f] text-[0.8rem] uppercase tracking-[0.12em] mb-[12px] font-bold">
@@ -101,41 +136,6 @@ export default async function Home() {
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      {/* ABOUT & EXPERIENCE SECTION */}
-      <section id="about" className="py-[110px] px-[7%]">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-[60px] items-start border-t border-b border-[#dedbd3] py-[110px]">
-          <div>
-            <p className="eyebrow">Experience</p>
-            <h2 className="font-display text-[clamp(2.2rem,5vw,4.5rem)] leading-none tracking-[-0.06em] mb-[22px] text-[#151515] font-medium">
-              Field execution and digital integration.
-            </h2>
-          </div>
-          <div className="flex flex-col gap-12">
-            {experience.map((exp) => (
-              <div key={exp.id} className="relative">
-                <div className="text-[#9b7a4f] text-[0.8rem] uppercase tracking-[0.12em] mb-2 font-bold">{exp.period}</div>
-                <h3 className="text-[1.5rem] font-display font-medium text-[#151515] mb-1">{exp.role}</h3>
-                <div className="text-[#6f6f6f] mb-4">{exp.company}</div>
-                {(exp as any).image && (
-                  <div className="mb-6 w-full h-[200px] md:h-[300px] overflow-hidden rounded-[16px] border border-[#dedbd3]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={(exp as any).image} alt={exp.company} className="w-full h-full object-cover" />
-                  </div>
-                )}
-                <ul className="flex flex-col gap-2">
-                  {exp.description.map((desc, i) => (
-                    <li key={i} className="text-[#6f6f6f] flex items-start gap-3 text-[0.95rem] leading-relaxed">
-                      <span className="text-[#dedbd3] mt-1">-</span>
-                      {desc}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

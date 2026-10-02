@@ -15,6 +15,7 @@ export interface Project {
   description: string;
   tools: string[];
   image?: string;
+  imagePosition?: string;
   link?: string;
 }
 
