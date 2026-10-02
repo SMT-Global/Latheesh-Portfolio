@@ -247,8 +247,19 @@ export default async function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-[32px] px-[7%] border-t border-[#dedbd3] text-[#6f6f6f] text-[0.9rem]">
+      <footer className="py-[32px] px-[7%] border-t border-[#dedbd3] text-[#6f6f6f] text-[0.9rem] flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
         <p>© {new Date().getFullYear()} {personal.name} - Construction Management & BIM Portfolio</p>
+        <p>
+          Designed & Developed by{" "}
+          <a 
+            href="https://noobacker.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[#151515] font-semibold hover:text-[#9b7a4f] transition-colors"
+          >
+            Noobacker
+          </a>
+        </p>
       </footer>
 
     </main>
