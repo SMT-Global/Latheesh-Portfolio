@@ -811,8 +811,9 @@ export default function AdminPage() {
                   onClick={saveResume}
                   className="btn-primary"
                   style={{ whiteSpace: "nowrap" }}
+                  disabled={saveStatus === "saving"}
                 >
-                  Save URL
+                  {saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "✓ Saved" : "Save URL"}
                 </button>
               </div>
 
@@ -939,8 +940,9 @@ export default function AdminPage() {
                 onClick={savePortfolio}
                 className="btn-primary"
                 style={{ alignSelf: "flex-start", marginTop: 8 }}
+                disabled={saveStatus === "saving"}
               >
-                Save Changes
+                {saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "✓ Saved" : "Save Changes"}
               </button>
             </div>
           </motion.div>
@@ -1206,6 +1208,18 @@ export default function AdminPage() {
                   </div>
                 </div>
 
+                {exp.image && (
+                  <div style={{ marginBottom: 16 }}>
+                    <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.5625rem", color: "var(--color-text-muted)", marginBottom: 4, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                      Image Crop Preview
+                    </label>
+                    <div style={{ width: "100%", height: 300, overflow: "hidden", borderRadius: 12, border: "1px solid var(--color-border)" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={exp.image} alt="Preview" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: (exp as any).imagePosition || "center" }} />
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label
                     style={{
@@ -1242,8 +1256,8 @@ export default function AdminPage() {
               <button onClick={addExperience} className="btn-outline">
                 + Add Experience
               </button>
-              <button onClick={savePortfolio} className="btn-primary">
-                Save All
+              <button onClick={savePortfolio} className="btn-primary" disabled={saveStatus === "saving"}>
+                {saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "✓ Saved" : "Save Experience"}
               </button>
             </div>
           </motion.div>
@@ -1460,6 +1474,18 @@ export default function AdminPage() {
                   </div>
                 </div>
 
+                {proj.image && (
+                  <div style={{ marginBottom: 16 }}>
+                    <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.5625rem", color: "var(--color-text-muted)", marginBottom: 4, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                      Image Crop Preview
+                    </label>
+                    <div style={{ width: "100%", height: 300, overflow: "hidden", borderRadius: 12, border: "1px solid var(--color-border)" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={proj.image} alt="Preview" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: (proj as any).imagePosition || "center" }} />
+                    </div>
+                  </div>
+                )}
+
                 <div style={{ marginBottom: 12 }}>
                   <label
                     style={{
@@ -1520,8 +1546,8 @@ export default function AdminPage() {
               <button onClick={addProject} className="btn-outline">
                 + Add Project
               </button>
-              <button onClick={savePortfolio} className="btn-primary">
-                Save All
+              <button onClick={savePortfolio} className="btn-primary" disabled={saveStatus === "saving"}>
+                {saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "✓ Saved" : "Save Projects"}
               </button>
             </div>
           </motion.div>
@@ -1593,8 +1619,8 @@ export default function AdminPage() {
             </div>
 
             <div style={{ display: "flex", gap: 12 }}>
-              <button onClick={savePortfolio} className="btn-primary">
-                Save All
+              <button onClick={savePortfolio} className="btn-primary" disabled={saveStatus === "saving"}>
+                {saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "✓ Saved" : "Save Skills"}
               </button>
             </div>
           </motion.div>
