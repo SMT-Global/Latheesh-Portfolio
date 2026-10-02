@@ -11,7 +11,7 @@ const JWT_SECRET = new TextEncoder().encode(
 );
 
 const COOKIE_NAME = "portfolio_admin_token";
-const TOKEN_EXPIRY = "8h";
+const TOKEN_EXPIRY = "45d";
 
 // ─── PASSWORD VERIFICATION ───
 // Using constant-time comparison to prevent timing attacks
@@ -49,7 +49,7 @@ export async function setAuthCookie(token: string): Promise<void> {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 8 * 60 * 60, // 8 hours
+    maxAge: 45 * 24 * 60 * 60, // 45 days
     path: "/",
   });
 }
