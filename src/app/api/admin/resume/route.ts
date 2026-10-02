@@ -44,8 +44,8 @@ export async function PUT(request: Request) {
     return NextResponse.json({ success: true, url: finalUrl });
   } catch (err: any) {
     const errorMsg = err?.message || "Invalid request";
-    // Check if it's a Vercel read-only filesystem error
-    if (errorMsg.includes("EROFS") || errorMsg.includes("read-only")) {
+    // Check if it's a Vercel read-only filesystem error or missing directory error
+    if (errorMsg.includes("EROFS") || errorMsg.includes("read-only") || errorMsg.includes("ENOENT")) {
       return NextResponse.json({ error: "Vercel's filesystem is read-only. Run the admin panel locally (npm run dev) to save changes." }, { status: 400 });
     }
     return NextResponse.json({ error: errorMsg }, { status: 400 });
