@@ -36,12 +36,12 @@ export default async function Home() {
       {/* HERO SECTION */}
       <section id="home" className="min-h-screen flex items-center pt-[140px] px-[7%] pb-[80px]">
         <div className="max-w-[900px]">
-          <p className="eyebrow">Digital Twins • Architecture • BIM</p>
+          <p className="eyebrow">{personal.eyebrow || "Digital Twins • Architecture • BIM"}</p>
           <h1 className="text-[clamp(4rem,12vw,10rem)] leading-[0.9] tracking-[-0.08em] mb-[28px] font-display font-medium text-[#151515]">
             Latheesh Reddy
           </h1>
           <p className="text-[clamp(1.2rem,3vw,2rem)] text-[#222222] mb-[24px] font-display">
-            Construction Management • Digital Twins • Infrastructure
+            {personal.subtitle || "Construction Management • Digital Twins • Infrastructure"}
           </p>
           <p className="max-w-[680px] text-[#6f6f6f] text-[1.1rem] mb-[24px]">
             {personal.tagline}

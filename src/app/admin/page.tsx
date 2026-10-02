@@ -874,6 +874,8 @@ export default function AdminPage() {
                   { key: "phone", label: "Phone" },
                   { key: "location", label: "Location" },
                   { key: "linkedin", label: "LinkedIn URL" },
+                  { key: "eyebrow", label: "Eyebrow Text (Small Top Text)" },
+                  { key: "subtitle", label: "Subtitle" },
                 ].map((field) => (
                   <div key={field.key}>
                     <label

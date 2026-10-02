@@ -40,6 +40,8 @@ export interface PortfolioData {
     firstName: string;
     lastName: string;
     title: string;
+    eyebrow: string;
+    subtitle: string;
     tagline: string;
     email: string;
     phone: string;
@@ -61,6 +63,8 @@ export const portfolioData: PortfolioData = {
     firstName: "Latheesh",
     lastName: "Reddy",
     title: "Construction Management & Architecture",
+    eyebrow: "Digital Twins • Architecture • BIM",
+    subtitle: "Construction Management • Digital Twins • Infrastructure",
     tagline:
       "Building the future through digital twins, BIM integration, and data-driven infrastructure management - from blueprint to built environment.",
     email: "latheeshreddy@nyu.edu",
