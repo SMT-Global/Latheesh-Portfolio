@@ -246,8 +246,15 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: resumeUrl }),
       });
-      setSaveStatus(res.ok ? "saved" : "error");
+      if (res.ok) {
+        setSaveStatus("saved");
+      } else {
+        const data = await res.json();
+        alert(data.error || "Failed to save");
+        setSaveStatus("error");
+      }
     } catch {
+      alert("Network error");
       setSaveStatus("error");
     }
     setTimeout(() => setSaveStatus("idle"), 2000);
@@ -266,8 +273,15 @@ export default function AdminPage() {
           skills: skills,
         }),
       });
-      setSaveStatus(res.ok ? "saved" : "error");
+      if (res.ok) {
+        setSaveStatus("saved");
+      } else {
+        const data = await res.json();
+        alert(data.error || "Failed to save");
+        setSaveStatus("error");
+      }
     } catch {
+      alert("Network error");
       setSaveStatus("error");
     }
     setTimeout(() => setSaveStatus("idle"), 2000);

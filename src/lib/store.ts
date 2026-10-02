@@ -6,8 +6,13 @@ const RESUME_FILE = path.join(DATA_DIR, "resume.json");
 const PORTFOLIO_FILE = path.join(DATA_DIR, "portfolio-overrides.json");
 
 function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    // Ignore EROFS errors on Vercel read-only filesystem
+    console.warn("Could not create data dir, likely read-only filesystem (Vercel)");
   }
 }
 
