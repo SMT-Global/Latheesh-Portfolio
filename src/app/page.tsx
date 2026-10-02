@@ -230,7 +230,7 @@ export default async function Home() {
           {personal.phone && (
             <a href={`tel:${personal.phone}`} className="text-[#9b7a4f] font-bold border-b border-transparent hover:border-[#9b7a4f] transition-colors">{personal.phone}</a>
           )}
-          <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#9b7a4f] font-bold border-b border-transparent hover:border-[#9b7a4f] transition-colors">LinkedIn</a>
+          <a href={personal.linkedin?.startsWith("http") ? personal.linkedin : `https://${personal.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-[#9b7a4f] font-bold border-b border-transparent hover:border-[#9b7a4f] transition-colors">LinkedIn</a>
         </div>
       </section>
 

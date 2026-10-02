@@ -71,7 +71,7 @@ export const portfolioData: PortfolioData = {
     phone: "9296202030",
     location: "New York City, USA",
     resumeUrl: "",
-    linkedin: "https://linkedin.com/in/latheeshreddy",
+    linkedin: "https://www.linkedin.com/in/latheesh-reddy",
   },
   education: [
     {
