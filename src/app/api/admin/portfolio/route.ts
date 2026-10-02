@@ -49,7 +49,11 @@ export async function PUT(request: Request) {
     setOverrides(sanitized);
     revalidatePath("/");
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  } catch (err: any) {
+    const errorMsg = err?.message || "Invalid request";
+    if (errorMsg.includes("EROFS") || errorMsg.includes("read-only")) {
+      return NextResponse.json({ error: "Vercel's filesystem is read-only. Run the admin panel locally (npm run dev) to save changes." }, { status: 400 });
+    }
+    return NextResponse.json({ error: errorMsg }, { status: 400 });
   }
 }
