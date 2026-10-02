@@ -38,6 +38,7 @@ export interface PortfolioOverrides {
   experience?: Array<Record<string, unknown>>;
   projects?: Array<Record<string, unknown>>;
   skills?: Array<Record<string, unknown>>;
+  education?: Array<Record<string, unknown>>;
   leadership?: string[];
 }
 
