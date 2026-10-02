@@ -9,7 +9,8 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  return NextResponse.json(getOverrides());
+  const overrides = await getOverrides();
+  return NextResponse.json(overrides);
 }
 
 export async function PUT(request: Request) {
@@ -46,7 +47,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    setOverrides(sanitized);
+    await setOverrides(sanitized);
     revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch (err: any) {

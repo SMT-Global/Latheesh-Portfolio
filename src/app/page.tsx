@@ -1,10 +1,11 @@
 import { portfolioData, Project, Experience, Skill, Education } from "@/data/portfolio";
 import ResumeSection from "@/components/ResumeSection";
+import HeaderNav from "@/components/HeaderNav";
 import { getOverrides, getResumeUrl } from "@/lib/store";
 
 export default async function Home() {
-  const overrides = getOverrides();
-  const resumeUrl = getResumeUrl();
+  const overrides = await getOverrides();
+  const resumeUrl = await getResumeUrl();
 
   const personal = { ...portfolioData.personal, ...overrides.personal };
   const experience = (overrides.experience as unknown as Experience[]) || portfolioData.experience;
@@ -30,20 +31,7 @@ export default async function Home() {
     <main className="min-h-screen">
       
       {/* HEADER */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center py-[18px] px-[7%] bg-[#f7f5f0]/90 backdrop-blur-md border-b border-[#dedbd3]">
-        <a href="#home" className="flex items-center gap-[12px] text-[1.35rem] font-bold tracking-[-0.04em]">
-          <span className="w-8 h-8 bg-[#151515] text-white flex items-center justify-center text-xs font-mono tracking-widest">LR</span>
-          <span>Latheesh</span>
-        </a>
-        <nav className="hidden md:flex gap-[28px] text-[0.9rem] text-[#6f6f6f]">
-          <a href="#home" className="hover:text-[#151515] transition-colors">Home</a>
-          <a href="#projects" className="hover:text-[#151515] transition-colors">Projects</a>
-          <a href="#about" className="hover:text-[#151515] transition-colors">Experience</a>
-          <a href="#education" className="hover:text-[#151515] transition-colors">Education</a>
-          <a href="#skills" className="hover:text-[#151515] transition-colors">Skills</a>
-          <a href="#resume" className="hover:text-[#151515] transition-colors">Resume</a>
-        </nav>
-      </header>
+      <HeaderNav />
 
       {/* HERO SECTION */}
       <section id="home" className="min-h-screen flex items-center pt-[140px] px-[7%] pb-[80px]">
@@ -255,7 +243,7 @@ export default async function Home() {
             href="https://noobacker.com/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-[#151515] font-semibold hover:text-[#9b7a4f] transition-colors"
+            className="text-[#151515] font-semibold hover:text-[#9b7a4f] transition-colors underline decoration-2 underline-offset-4"
           >
             Noobacker
           </a>

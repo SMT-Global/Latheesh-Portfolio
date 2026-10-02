@@ -9,7 +9,8 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  return NextResponse.json({ url: getResumeUrl() });
+  const url = await getResumeUrl();
+  return NextResponse.json({ url });
 }
 
 export async function PUT(request: Request) {
@@ -39,7 +40,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    setResumeUrl(finalUrl);
+    await setResumeUrl(finalUrl);
     revalidatePath("/");
     return NextResponse.json({ success: true, url: finalUrl });
   } catch (err: any) {

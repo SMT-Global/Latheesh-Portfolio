@@ -1,42 +1,4 @@
-import fs from "fs";
-import path from "path";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-const RESUME_FILE = path.join(DATA_DIR, "resume.json");
-const PORTFOLIO_FILE = path.join(DATA_DIR, "portfolio-overrides.json");
-
-function ensureDataDir() {
-  try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-  } catch (err) {
-    // Ignore EROFS errors on Vercel read-only filesystem
-    console.warn("Could not create data dir, likely read-only filesystem (Vercel)");
-  }
-}
-
-// ─── Resume URL store ───
-
-export function getResumeUrl(): string {
-  ensureDataDir();
-  try {
-    if (fs.existsSync(RESUME_FILE)) {
-      const data = JSON.parse(fs.readFileSync(RESUME_FILE, "utf-8"));
-      return data.url || "";
-    }
-  } catch {
-    // File doesn't exist or is malformed
-  }
-  return "";
-}
-
-export function setResumeUrl(url: string): void {
-  ensureDataDir();
-  fs.writeFileSync(RESUME_FILE, JSON.stringify({ url, updatedAt: new Date().toISOString() }));
-}
-
-// ─── Portfolio overrides store ───
+import clientPromise from "./mongodb";
 
 export interface PortfolioOverrides {
   personal?: Record<string, string>;
@@ -47,19 +9,59 @@ export interface PortfolioOverrides {
   leadership?: string[];
 }
 
-export function getOverrides(): PortfolioOverrides {
-  ensureDataDir();
+export async function getResumeUrl(): Promise<string> {
   try {
-    if (fs.existsSync(PORTFOLIO_FILE)) {
-      return JSON.parse(fs.readFileSync(PORTFOLIO_FILE, "utf-8"));
+    const client = await clientPromise;
+    const db = client.db("portfolio");
+    const doc = await db.collection("resume").findOne({ _id: "resume-url" as any });
+    return doc?.url || "";
+  } catch (err) {
+    console.error("Failed to fetch resume URL from MongoDB:", err);
+    return "";
+  }
+}
+
+export async function setResumeUrl(url: string): Promise<void> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("portfolio");
+    await db.collection("resume").updateOne(
+      { _id: "resume-url" as any },
+      { $set: { url, updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    );
+  } catch (err) {
+    console.error("Failed to update resume URL in MongoDB:", err);
+    throw err;
+  }
+}
+
+export async function getOverrides(): Promise<PortfolioOverrides> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("portfolio");
+    const doc = await db.collection("overrides").findOne({ _id: "portfolio-overrides" as any });
+    if (doc) {
+      const { _id, ...data } = doc;
+      return data;
     }
-  } catch {
-    // File doesn't exist or is malformed
+  } catch (err) {
+    console.error("Failed to fetch overrides from MongoDB:", err);
   }
   return {};
 }
 
-export function setOverrides(overrides: PortfolioOverrides): void {
-  ensureDataDir();
-  fs.writeFileSync(PORTFOLIO_FILE, JSON.stringify(overrides, null, 2));
+export async function setOverrides(overrides: PortfolioOverrides): Promise<void> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("portfolio");
+    await db.collection("overrides").updateOne(
+      { _id: "portfolio-overrides" as any },
+      { $set: overrides },
+      { upsert: true }
+    );
+  } catch (err) {
+    console.error("Failed to update overrides in MongoDB:", err);
+    throw err;
+  }
 }
